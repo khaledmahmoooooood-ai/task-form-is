@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>استبيان حجز المواعيد الطبية - NileCare</title>
+<style>
+:root{--red:#d90429;--blue:#3b9cff;--soft:#eaf4ff;--ink:#111;--paper:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+html{scroll-behavior:auto}
+body{margin:0;background:var(--soft);color:var(--ink);font-family:"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.6}
+header{background:var(--ink);color:var(--paper);text-align:center;padding:56px 20px 44px;border-bottom:8px solid var(--red)}
+header h1{margin:0 0 8px;font-size:2.2rem;display:inline-block}
+header p{margin:0;color:var(--blue);font-size:1.1rem}
+main{max-width:760px;margin:0 auto;padding:28px 16px 60px}
+.t{transition:transform .25s ease,box-shadow .25s ease,background .25s ease;transform-origin:center}
+.t:hover{transform:scale(1.04)}
+.q{background:var(--paper);border:2px solid var(--ink);border-radius:18px;padding:20px 24px;margin:0 0 22px;box-shadow:6px 6px 0 var(--blue)}
+.q:hover{box-shadow:8px 8px 0 var(--red);z-index:2;position:relative}
+.q h3{margin:0 0 14px;font-size:1.1rem}
+.q h3 span{display:inline-block;background:var(--red);color:var(--paper);border-radius:50%;min-width:32px;height:32px;line-height:32px;text-align:center;margin-inline-end:8px;font-size:.95rem}
+.opt{display:block;padding:10px 14px;margin:8px 0;border:2px solid var(--blue);border-radius:12px;cursor:pointer;background:var(--paper)}
+.opt:hover{background:var(--blue);border-color:var(--red)}
+.opt input{accent-color:var(--red);margin-inline-end:8px;width:18px;height:18px;vertical-align:middle}
+.opt:has(input:checked){background:var(--blue);border-color:var(--red);font-weight:600}
+button{font:inherit;font-weight:700;border:2px solid var(--ink);border-radius:14px;padding:14px 34px;cursor:pointer;background:var(--red);color:var(--paper);font-size:1.1rem}
+button:hover{background:var(--ink)}
+button:disabled{opacity:.6;cursor:wait}
+.center{text-align:center}
+.ico{font-size:2.2rem;margin-bottom:10px;letter-spacing:10px}.ico span{display:inline-block;cursor:default}
+.qi{font-size:1.4rem;margin-inline-end:6px}.cr{color:var(--red);font-weight:900;margin-inline-end:6px}
+#done{display:none;text-align:center;background:var(--paper);border:3px solid var(--ink);border-radius:22px;padding:40px 24px;box-shadow:8px 8px 0 var(--blue)}
+#done .big{font-size:4rem}#done h2{margin:10px 0 6px;font-size:1.6rem}#done p{margin:0 0 6px;color:#444}
+#msg{display:none;margin:22px 0 0;padding:18px;border-radius:14px;background:var(--ink);color:var(--paper);border:3px solid var(--red);text-align:center;font-size:1.2rem;font-weight:700}
+#msg.err{background:var(--paper);color:var(--red)}
+#again{display:none;margin-top:26px;text-align:center}
+#again button{background:var(--ink)}
+#again button:hover{background:var(--red)}
+.door{position:fixed;top:0;bottom:0;width:50.5%;z-index:50;background:repeating-linear-gradient(90deg,var(--ink) 0 46px,#1d1d1d 46px 48px);transition:transform 1.6s cubic-bezier(.77,0,.18,1);display:flex;align-items:center}
+.door::after{content:"✚";position:absolute;top:50%;transform:translateY(-50%);font-size:6rem;color:var(--blue);opacity:.3}
+#dl{left:0;transform:translateX(0);border-right:6px solid var(--red);justify-content:flex-end}
+#dr{right:0;transform:translateX(0);border-left:6px solid var(--red)}
+#dl::after{left:12%}#dr::after{right:12%}
+.open #dl{transform:translateX(-101%);transition-delay:.9s}
+.open #dr{transform:translateX(101%);transition-delay:.9s}
+.knob{width:22px;height:22px;border-radius:50%;background:var(--blue);border:3px solid var(--red);margin:0 18px;z-index:2}
+#badge{position:fixed;z-index:60;top:50%;left:50%;width:min(300px,72vw);aspect-ratio:1;margin:calc(min(300px,72vw)/-2) 0 0 calc(min(300px,72vw)/-2);border-radius:50%;background:var(--paper);color:var(--ink);border:8px solid var(--red);box-shadow:0 0 0 8px var(--blue),0 10px 40px rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;font-size:clamp(1.3rem,5vw,1.9rem);font-weight:800;direction:ltr;transition:opacity .5s ease .9s,transform 1.2s cubic-bezier(.5,0,.3,1);pointer-events:none;flex-direction:column;gap:6px}
+#badge .bi{font-size:2.6rem}
+.open #badge{opacity:0;transform:rotate(720deg) scale(.3)}
+.sealed{overflow:hidden;height:100vh}
+</style>
+</head>
+<body class="sealed">
+<div id="dl" class="door" dir="ltr"><div class="knob"></div></div>
+<div id="dr" class="door" dir="ltr"><div class="knob"></div></div>
+<div id="badge"><span class="bi">🏥</span><span id="bt">Welcome to our clinic</span></div>
+
+<header><div class="ico"><span class="t">🏥</span><span class="t">🩺</span><span class="t">💉</span><span class="t">💊</span><span class="t">🚑</span></div><h1 class="t">⚕️ استبيان نظام NileCare ⚕️</h1><p>شاركنا أفكارك لتطوير تجربة حجز المواعيد الطبية</p></header>
+<main>
+<form id="f" novalidate></form>
+<div id="msg" role="status"></div>
+<div id="done"><div class="big">✅</div><h2>Your response has been recorded</h2><p>Thank you for helping us improve NileCare 💙</p><br><button type="button" id="againBtn" class="t">🔄 Do you want to submit another response?</button></div>
+</main>
+
+<script>
+const Q=[
+["كم هو عمرك؟",["14 - 17 سنة","18 - 25 سنة","26 - 39 سنة","40 سنة فما فوق"]],
+["بتروح تكشف عند دكتور أو بتزور عيادة كام مرة تقريباً في السنة؟",["من مرة لمرتين","من 3 لـ 5 مرات","أكتر من 5 مرات"]],
+["هل تعاملت من قبل مع تطبيق إلكتروني للحجوزات (سواء لعيادات ومستشفيات أو مجالات أخرى)؟",["نعم، تطبيقات طبية (مثل حجز العيادات)","نعم، تطبيقات في مجالات أخرى (فنادق، مطاعم، طيران)","لا، لم أستخدم أي تطبيقات حجز من قبل"]],
+["إذا لم يسبق لك استخدام تطبيقات الحجز، ما هي الطريقة التي تفضلها لحجز موعدك الطبي؟",["تطبيق إلكتروني مخصص","مكالمة هاتفية","رسائل واتساب (WhatsApp)","البريد الإلكتروني (Email)"]],
+["إيه المشاكل اللي واجهتك قبل كده في الحجز بالطرق التقليدية (من غير تطبيق مخصص)؟",["بنسى ميعاد الحجز أصلاً علشان محدش بيفكرني","بروح العيادة وبستنى فترات طويلة بسبب ازدحام المرضى","لما بكلمهم في التليفون أو أبعتلهم رسالة، الرد بيكون متأخر","مش بعرف معلومات تفصيلية قبل الكشف (زي سعر الفيزيتا أو تقييمات الناس للدكتور)"]],
+["إيه هو أقصى وقت ممكن تستحمله إنك تفضل منتظر داخل العيادة بعد تأكيد الحجز؟",["أقل من 5 دقايق","أقل من ربع ساعة","نص ساعة","ساعة كاملة","أكتر من ساعة"]],
+["إيه أهم ميزة تخليك تجرب تستخدم الأبليكيشن عشان تحجز؟",["إني أشوف تقييمات ورأي الناس الحقيقية في الدكتور","أبقى عارف وقت الانتظار الفعلي ومضيعش وقتي في العيادة","السهولة في إني أختار أو أعدل ميعاد الحجز براحتي","إن الأبليكيشن يبعتلي تنبيهات ويفكرني بالميعاد قبلها"]],
+["ما هي الطريقة المفضلة لتذكيرك بموعد الحجز؟",["إشعار من التطبيق (App Notification)","رسالة عبر الواتساب (WhatsApp Message)","رسالة نصية على الموبايل (SMS)","رسالة على البريد الإلكتروني (Email)"]],
+["من مميزات الأبليكيشن إنك تقدر تتواصل مع الدكتور (شات أو رسايل) بعد الكشف لو ظهر عليك أي عرض مفاجئ، إيه رأيك في الميزة دي؟",["مهمة جداً وهتشجعني أستخدم الأبليكيشن","ميزة كويسة، بس مش أساسية بالنسبالي","مش فارقة كتير، بفضل أروح استشارة في العيادة"]],
+["لو الأبليكيشن عجبك وتجربتك معاه كانت مريحة، إيه مدى احتمالية إنك تنصح أصحابك أو عيلتك يستخدموه؟ (تقييم من 1 لـ 5)",["1 - مستحيل أنصح بيه","2 - احتمال ضعيف","3 - نص نص (ممكن)","4 - احتمال كبير","5 - أكيد هنصح بيه جداً"]]
+];
+const f=document.getElementById('f'),msg=document.getElementById('msg'),done=document.getElementById('done'),bt=document.getElementById('bt'),body=document.body;
+const IC=['🎂','🩺','📱','📞','😟','⏱️','⭐','🔔','💬','👍'];
+function build(){
+  f.innerHTML=Q.map((q,i)=>`<div class="q t" id="q${i+1}"><h3><span>${i+1}</span><span class="qi">${IC[i]}</span>${q[0]}</h3>`+
+    q[1].map((o,j)=>`<label class="opt t"><input type="radio" name="q${i+1}" value="${j+1}"><span class="cr">✚</span>${o}</label>`).join('')+`</div>`).join('')+
+    `<div class="center"><button type="submit" id="sub" class="t">✚ Submit Responses</button></div>`;
+}
+build();
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+function openDoors(){body.classList.add('open');setTimeout(()=>body.classList.remove('sealed'),2600)}
+function closeDoors(){body.classList.add('sealed');body.classList.remove('open')}
+window.addEventListener('load',()=>setTimeout(openDoors,1600));
+
+const ENDPOINT='https://formspree.io/f/mvkkkkvv';
+
+function showMsg(t,err){msg.textContent=t;msg.className=err?'err':'';msg.style.display='block';msg.scrollIntoView({behavior:'smooth',block:'center'})}
+
+f.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const data={};
+  for(let i=1;i<=Q.length;i++){
+    const c=f.querySelector(`input[name=q${i}]:checked`);
+    if(!c){const el=document.getElementById('q'+i);el.scrollIntoView({behavior:'smooth',block:'center'});showMsg('Please answer question '+i,true);return}
+    data[i+'. '+Q[i-1][0]]=Q[i-1][1][Number(c.value)-1];
+  }
+  const btn=document.getElementById('sub');btn.disabled=true;
+  try{
+    data._subject='NileCare survey response';
+    const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});
+    if(!r.ok) throw new Error('http '+r.status);
+    msg.style.display='none';f.style.display='none';done.style.display='block';
+    done.scrollIntoView({behavior:'smooth',block:'center'});
+  }catch(err){
+    btn.disabled=false;
+    showMsg('We couldn’t save your response. Please try again.',true);
+  }
+});
+
+document.getElementById('againBtn').addEventListener('click',async()=>{
+  bt.textContent='Thank you for your feedback';
+  closeDoors();
+  await wait(3200);
+  window.scrollTo(0,0);
+  build();msg.style.display='none';done.style.display='none';f.style.display='block';
+  await wait(900);
+  bt.textContent='Welcome to our clinic';
+  openDoors();
+});
+</script>
+</body>
+</html>
